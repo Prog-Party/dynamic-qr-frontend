@@ -25,7 +25,7 @@ const Dashboard = () => {
             <DashboardCard title="Generate static QR ">
               <>
                 <Typography>
-                  Generate your static QR code now. It can be anything, from text to an url.
+                  Generate your static QR code now. It can be anything, from text to an url!
                 </Typography>
                 <GenerateStaticQr />
               </>
