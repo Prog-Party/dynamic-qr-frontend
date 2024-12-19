@@ -2,7 +2,7 @@ body {
   margin: 0;
   background-color: #f00;
 }
-
+/* 
 .sidebarNav .MuiListItemButton-root {
   display: flex;
   align-items: center;
@@ -23,4 +23,4 @@ body {
 
 .sidebarNav .MuiListItemButton-root:hover .MuiListItemText-root {
   display: block;
-}
+} */

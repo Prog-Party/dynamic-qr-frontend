@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 // mui imports
 import {
   List,
@@ -8,8 +8,8 @@ import {
   ListItemText,
   styled,
   useTheme,
-} from "@mui/material"
-import Link from "next/link"
+} from "@mui/material";
+import Link from "next/link";
 
 type NavGroup = {
   [x: string]: any;
@@ -24,13 +24,16 @@ type NavGroup = {
 
 interface ItemType {
   item: NavGroup;
-  onClick: (event: React.MouseEvent<HTMLElement>) => void;
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  onMouseEnter?: React.MouseEventHandler<HTMLElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLElement>;
   hideMenu?: any;
   level?: number | any;
   pathDirect: string;
+  isCollapsed?: boolean;
 }
 
-const NavItem = ({ item, level, pathDirect, onClick }: ItemType) => {
+const NavItem = ({ item, level, pathDirect, onClick, onMouseEnter, onMouseLeave, isCollapsed }: ItemType) => {
   const theme = useTheme()
 
   const Icon = item.icon
@@ -45,6 +48,9 @@ const NavItem = ({ item, level, pathDirect, onClick }: ItemType) => {
       backgroundColor: level > 1 ? "transparent !important" : "inherit",
       color: theme.palette.text.secondary,
       paddingLeft: "10px",
+      ".MuiListItemIcon-root": {
+        paddingLeft: "5px",
+      },
       "&:hover": {
         backgroundColor: theme.palette.primary.light,
         color: theme.palette.primary.main,
@@ -70,6 +76,8 @@ const NavItem = ({ item, level, pathDirect, onClick }: ItemType) => {
           selected={pathDirect === item.href}
           target={item.external ? "_blank" : ""}
           onClick={onClick}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
         >
           {item.icon && <ListItemIcon
             sx={{
@@ -81,9 +89,11 @@ const NavItem = ({ item, level, pathDirect, onClick }: ItemType) => {
             <Icon stroke={1.5} size="1.3rem" />
           </ListItemIcon>
           }
-          <ListItemText>
-            <>{item.title}</>
-          </ListItemText>
+          {!isCollapsed && (
+            <ListItemText>
+              <>{item.title}</>
+            </ListItemText>
+          )}
         </ListItemButton>
       </ListItemStyled>
     </List>

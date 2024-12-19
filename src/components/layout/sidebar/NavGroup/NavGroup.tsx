@@ -1,17 +1,18 @@
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 // mui imports
-import { ListSubheader, styled, Theme } from "@mui/material"
+import { ListSubheader, styled, Theme } from "@mui/material";
 
 type NavGroup = {
   navlabel?: boolean;
   subheader?: string;
 };
 
-interface ItemType {
+interface NavGroupProps {
   item: NavGroup;
+  isCollapsed: boolean;
 }
 
-const NavGroup = ({ item }: ItemType) => {
+const NavGroup = (props: NavGroupProps) => {
   const ListSubheaderStyle = styled((props: Theme | any) => <ListSubheader disableSticky {...props} />)(
     ({ theme }) => ({
       ...theme.typography.overline,
@@ -24,7 +25,12 @@ const NavGroup = ({ item }: ItemType) => {
     }),
   )
   return (
-    <ListSubheaderStyle>{item.subheader}</ListSubheaderStyle>
+    <ListSubheaderStyle>
+      {props.isCollapsed ? <>
+      {props.item.subheader?.substring(0, 3)}...
+      </> : props.item.subheader}
+      {/* {item.subheader} */}
+    </ListSubheaderStyle>
   )
 }
 

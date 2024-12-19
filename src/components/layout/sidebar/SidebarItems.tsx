@@ -5,7 +5,12 @@ import Menuitems from "./MenuItems"
 import NavGroup from "./NavGroup/NavGroup"
 import NavItem from "./NavItem"
 
-const SidebarItems = ({ toggleMobileSidebar }: any) => {
+interface SidebarItemsProps
+{
+  isCollapsed: boolean;
+}
+
+const SidebarItems = (props: SidebarItemsProps) => {
   const pathname = usePathname()
   const pathDirect = pathname
 
@@ -19,10 +24,10 @@ const SidebarItems = ({ toggleMobileSidebar }: any) => {
         {!lgUp && HeaderMenuItems.map((item) => {
           return (
             <NavItem
+              isCollapsed={props.isCollapsed}
               item={item}
               key={item.id}
               pathDirect={pathDirect}
-              onClick={toggleMobileSidebar}
             />
           )
         })}
@@ -30,19 +35,17 @@ const SidebarItems = ({ toggleMobileSidebar }: any) => {
         {Menuitems.map((item) => {
           // {/********SubHeader**********/}
           if (item.subheader) {
-            return <NavGroup item={item} key={item.subheader} />
+            return <NavGroup isCollapsed={props.isCollapsed} item={item} key={item.subheader} />
 
             // {/********If Sub Menu**********/}
             /* eslint no-else-return: "off" */
           } else {
             return (
               <NavItem
+                isCollapsed={props.isCollapsed}
                 item={item}
                 key={item.id}
                 pathDirect={pathDirect}
-                onClick={toggleMobileSidebar}
-                onMouseEnter={() => setIsCollapsed(false)}
-                onMouseLeave={() => setIsCollapsed(true)}
               />
             )
           }

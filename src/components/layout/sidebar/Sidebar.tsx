@@ -25,6 +25,12 @@ const MSidebar = ({
   const [isCollapsed, setIsCollapsed] = useState(true)
 
   useEffect(() => {
+    console.log("Is collapsed: ", isCollapsed)
+  }, [isCollapsed])
+
+
+  useEffect(() => {
+    console.log("Is authenticated: ", isAuthenticated)
     //only show the desktop sidebar if the user is logged in
     if (isAuthenticated) {
       setShowSidebar(true)
@@ -80,31 +86,33 @@ const MSidebar = ({
             sx={{
               height: "100%",
             }}
+            onMouseEnter={() => setIsCollapsed(false)}
+            onMouseLeave={() => setIsCollapsed(true)}
           >
             <Sidebar
               width={"270px"}
-              collapsewidth="80px"
+              collapsewidth="100px"
               open={isSidebarOpen}
               isCollapse={isCollapsed}
               themeColor="#5d87ff"
               themeSecondaryColor="#49beff"
               showProfile={false}
-              onMouseEnter={() => setIsCollapsed(false)}
-              onMouseLeave={() => setIsCollapsed(true)}
             >
               {/* ------------------------------------------- */}
               {/* Logo */}
               {/* ------------------------------------------- */}
 
-              <Logo img="/images/logos/Logo-64x64.png" style={{
-                width: "32px",
-                height: "32px",
-              }} />
+              <Link href="/">
+                <Logo img="/images/logos/Logo-64x64.png" style={{
+                  width: "32px",
+                  height: "32px",
+                }} />
+              </Link>
               <Box>
                 {/* ------------------------------------------- */}
                 {/* Sidebar Items */}
                 {/* ------------------------------------------- */}
-                <SidebarItems />
+                <SidebarItems isCollapsed={isCollapsed} />
                 {!isAuthenticated && <Upgrade />}
               </Box>
             </Sidebar >
@@ -130,7 +138,9 @@ const MSidebar = ({
       {/* ------------------------------------------- */}
       {/* Sidebar Box */}
       {/* ------------------------------------------- */}
-      <Box px={2}>
+      <Box px={2}
+        onMouseEnter={() => setIsCollapsed(false)}
+        onMouseLeave={() => setIsCollapsed(true)}>
         <Sidebar
           width={"270px"}
           collapsewidth="80px"
@@ -151,7 +161,7 @@ const MSidebar = ({
           {/* ------------------------------------------- */}
           {/* Sidebar Items */}
           {/* ------------------------------------------- */}
-          <SidebarItems />
+          <SidebarItems isCollapsed={isCollapsed} />
           <Upgrade />
         </Sidebar>
       </Box>
