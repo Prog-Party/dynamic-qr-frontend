@@ -38,9 +38,6 @@ export default function Layout({ children }:LayoutProps) {
         isSidebarOpen={isSidebarOpen}
         isMobileSidebarOpen={isMobileSidebarOpen}
         onSidebarClose={() => setMobileSidebarOpen(false)}
-        isCollapsed={true}
-        onHoverExpand={() => setSidebarOpen(true)}
-        onHoverCollapse={() => setSidebarOpen(false)}
       />
       {/* ------------------------------------------- */}
       {/* Main Wrapper */}
