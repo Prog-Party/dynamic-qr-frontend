@@ -2,3 +2,25 @@ body {
   margin: 0;
   background-color: #f00;
 }
+
+.sidebarNav .MuiListItemButton-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+.sidebarNav .MuiListItemButton-root:hover {
+  justify-content: flex-start;
+  background-color: #f5f5f5;
+}
+
+.sidebarNav .MuiListItemButton-root .MuiListItemText-root {
+  display: none;
+  margin-left: 10px;
+}
+
+.sidebarNav .MuiListItemButton-root:hover .MuiListItemText-root {
+  display: block;
+}

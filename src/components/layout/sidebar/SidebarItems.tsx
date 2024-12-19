@@ -41,6 +41,8 @@ const SidebarItems = ({ toggleMobileSidebar }: any) => {
                 key={item.id}
                 pathDirect={pathDirect}
                 onClick={toggleMobileSidebar}
+                onMouseEnter={() => setIsCollapsed(false)}
+                onMouseLeave={() => setIsCollapsed(true)}
               />
             )
           }

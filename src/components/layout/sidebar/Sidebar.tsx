@@ -22,10 +22,13 @@ const MSidebar = ({
   const [showSidebar, setShowSidebar] = useState(false)
   const { isAuthenticated } = useAuth0()
 
+  const [isCollapsed, setIsCollapsed] = useState(true)
+
   useEffect(() => {
     //only show the desktop sidebar if the user is logged in
     if (isAuthenticated) {
       setShowSidebar(true)
+      setIsCollapsed(true)
     }
   }, [isAuthenticated])
 
@@ -82,9 +85,12 @@ const MSidebar = ({
               width={"270px"}
               collapsewidth="80px"
               open={isSidebarOpen}
+              isCollapse={isCollapsed}
               themeColor="#5d87ff"
               themeSecondaryColor="#49beff"
               showProfile={false}
+              onMouseEnter={() => setIsCollapsed(false)}
+              onMouseLeave={() => setIsCollapsed(true)}
             >
               {/* ------------------------------------------- */}
               {/* Logo */}
@@ -158,4 +164,3 @@ const MSidebar = ({
 }
 
 export default MSidebar
-
