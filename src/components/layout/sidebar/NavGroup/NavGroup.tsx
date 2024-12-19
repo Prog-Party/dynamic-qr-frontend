@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
+import PropTypes from "prop-types"
 // mui imports
-import { ListSubheader, styled, Theme } from "@mui/material";
+import { ListSubheader, styled, Theme } from "@mui/material"
 
 type NavGroup = {
   navlabel?: boolean;
@@ -27,7 +27,7 @@ const NavGroup = (props: NavGroupProps) => {
   return (
     <ListSubheaderStyle>
       {props.isCollapsed ? <>
-      {props.item.subheader?.substring(0, 3)}...
+        {props.item.subheader?.substring(0, 3)}...
       </> : props.item.subheader}
       {/* {item.subheader} */}
     </ListSubheaderStyle>

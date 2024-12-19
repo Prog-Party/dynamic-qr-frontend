@@ -25,12 +25,6 @@ const MSidebar = ({
   const [isCollapsed, setIsCollapsed] = useState(true)
 
   useEffect(() => {
-    console.log("Is collapsed: ", isCollapsed)
-  }, [isCollapsed])
-
-
-  useEffect(() => {
-    console.log("Is authenticated: ", isAuthenticated)
     //only show the desktop sidebar if the user is logged in
     if (isAuthenticated) {
       setShowSidebar(true)

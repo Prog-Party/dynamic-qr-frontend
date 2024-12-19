@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 // mui imports
 import {
   List,
@@ -8,8 +8,8 @@ import {
   ListItemText,
   styled,
   useTheme,
-} from "@mui/material";
-import Link from "next/link";
+} from "@mui/material"
+import Link from "next/link"
 
 type NavGroup = {
   [x: string]: any;
