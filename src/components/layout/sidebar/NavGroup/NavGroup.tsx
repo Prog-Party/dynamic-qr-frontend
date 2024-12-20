@@ -7,11 +7,12 @@ type NavGroup = {
   subheader?: string;
 };
 
-interface ItemType {
+interface NavGroupProps {
   item: NavGroup;
+  isCollapsed: boolean;
 }
 
-const NavGroup = ({ item }: ItemType) => {
+const NavGroup = (props: NavGroupProps) => {
   const ListSubheaderStyle = styled((props: Theme | any) => <ListSubheader disableSticky {...props} />)(
     ({ theme }) => ({
       ...theme.typography.overline,
@@ -24,7 +25,11 @@ const NavGroup = ({ item }: ItemType) => {
     }),
   )
   return (
-    <ListSubheaderStyle>{item.subheader}</ListSubheaderStyle>
+    <ListSubheaderStyle>
+      {props.isCollapsed ? <>
+        {props.item.subheader?.substring(0, 3)}...
+      </> : props.item.subheader}
+    </ListSubheaderStyle>
   )
 }
 
