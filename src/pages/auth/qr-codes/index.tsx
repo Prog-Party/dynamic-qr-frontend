@@ -4,11 +4,11 @@ import { createCode } from "@/api/qr-codes-post"
 import PageContainer from "@/components/container/PageContainer"
 import DashboardCard from "@/components/shared/DashboardCard"
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react"
-import { Badge, Button } from "@mui/material"
+import { Box, Button, Chip } from "@mui/material"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
-const QrcodesPage = () => {
+const QrCodesPage = () => {
 
   const { user } = useAuth0()
   const [qrCodes, setQrCodes] = useState<QrCodesGetResponse[]>([])
@@ -32,17 +32,14 @@ const QrcodesPage = () => {
         <>
           <ul>
             <li>
-              <Link href="/auth/qr-codes/leetleet">
-                QR Code [todo-name] (<Badge color='secondary'>leetleet</Badge>)
-              </Link>
+              <QrCodeView code={{ Id: "leetleet", IncludeMargin: true }} />
             </li>
             {qrCodes.map((code) => (
               <li key={code.Id}>
-                <Link href={`/auth/qr-codes/${code.Id}`}>
-                  QR Code {code.Id}
-                </Link>
+                <QrCodeView code={code} />
               </li>
             ))}
+
           </ul>
         </>
       </DashboardCard>
@@ -55,5 +52,24 @@ const QrcodesPage = () => {
   )
 }
 
-export default withAuthenticationRequired(QrcodesPage)
+const QrCodeView = ({ code }: { code: QrCodesGetResponse }) => (
+  <>
+    <Chip
+      label={code.Id}
+      variant='outlined'
+      size='small'
+      sx={{
+        width: '80px',
+        marginBottom: 1,
+        }} />
+    <Box
+      ml={2}
+      component={Link}
+      href={`/auth/qr-codes/${code.Id}`}>
+      QR Code [todo-name]
+    </Box>
+  </>
+)
+
+export default withAuthenticationRequired(QrCodesPage)
 
