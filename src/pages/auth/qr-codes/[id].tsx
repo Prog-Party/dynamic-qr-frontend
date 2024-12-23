@@ -15,10 +15,6 @@ const OrganizationPage = () => {
   const organizationId = user?.organizationId ?? -1
   const [qrCode, setQrCode] = useState()
 
-  const createQrCode = async () => {
-    const result = await getCode(user!.organizationId, "temp")
-  }
-
   useEffect(() => {
     const fetchData = async () => {
       const apiResult = await getCode(organizationId, id as string)

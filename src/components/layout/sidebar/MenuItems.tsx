@@ -9,7 +9,17 @@ const Menuitems = [
     id: uniqueId(),
     title: "Home",
     icon: IconLayoutDashboard,
-    href: "/",
+    href: "/auth",
+  },
+  {
+    navlabel: true,
+    subheader: "QR codes",
+  },
+  {
+    id: uniqueId(),
+    title: "Overview",
+    icon: IconLayoutDashboard,
+    href: "/auth/qr-codes",
   },
   {
     navlabel: true,
