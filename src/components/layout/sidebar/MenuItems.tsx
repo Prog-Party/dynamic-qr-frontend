@@ -1,6 +1,6 @@
-import {
-  IconLayoutDashboard
-} from "@tabler/icons-react"
+import BusinessIcon from "@mui/icons-material/Business"
+import DashboardIcon from "@mui/icons-material/Dashboard"
+import WalletIcon from "@mui/icons-material/Wallet"
 
 import { uniqueId } from "lodash"
 
@@ -8,7 +8,7 @@ const Menuitems = [
   {
     id: uniqueId(),
     title: "Home",
-    icon: IconLayoutDashboard,
+    icon: DashboardIcon,
     href: "/auth",
   },
   {
@@ -18,7 +18,7 @@ const Menuitems = [
   {
     id: uniqueId(),
     title: "Overview",
-    icon: IconLayoutDashboard,
+    icon: DashboardIcon,
     href: "/auth/qr-codes",
   },
   {
@@ -28,13 +28,13 @@ const Menuitems = [
   {
     id: uniqueId(),
     title: "Organization",
-    icon: IconLayoutDashboard,
+    icon: BusinessIcon,
     href: "/auth/organization",
   },
   {
     id: uniqueId(),
     title: "Wallet",
-    icon: IconLayoutDashboard,
+    icon: WalletIcon,
     href: "/auth/wallet",
   }
 ]
