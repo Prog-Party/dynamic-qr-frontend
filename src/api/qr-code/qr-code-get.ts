@@ -1,11 +1,11 @@
-import { constructUrl } from "@/api/ApiHelper";
-import axios from "axios";
+import { constructUrl } from "@/api/ApiHelper"
+import axios from "axios"
 
 interface QrCodeGetResponse {
   IncludeMargin: boolean;
   BackgroundColor?: string;
   ForegroundColor?: string;
-  ImageUrl?: string;	
+  ImageUrl?: string;
   ImageHeight?: number;
   ImageWidth?: number;
 }

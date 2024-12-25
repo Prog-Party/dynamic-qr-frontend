@@ -119,7 +119,6 @@ const GenerateStaticQr = (props: GenerateStaticQrProps) => {
       await updateQrCode("your-organization-identifier", dynamicQrCodeId, layoutData)
       alert("QR code layout updated successfully!")
     } catch (error) {
-      console.error("Failed to update QR code layout:", error)
       alert("Failed to update QR code layout.")
     }
   }

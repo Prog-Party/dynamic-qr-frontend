@@ -1,12 +1,11 @@
-import { constructUrl } from "@/api/ApiHelper";
-import axios from "axios";
+import { constructUrl } from "@/api/ApiHelper"
+import axios from "axios"
 
-export const createCode = async (organizationIdentifier: string, value: string) => {
+export const createCode = async (organizationIdentifier: string) => {
 
   try {
     const url = constructUrl("qr-codes")
     const data = {
-      Value: value
     }
     const response = await axios.post(url, data, {
       headers: {

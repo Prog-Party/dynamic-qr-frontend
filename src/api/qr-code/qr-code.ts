@@ -1,7 +1,17 @@
-import axios from "axios"
-import { constructUrl } from "../ApiHelper"
+import { constructUrl } from "@/api/ApiHelper";
+import axios from "axios";
 
-export const getCode = async (organizationIdentifier: string, qrCodeId: string) => {
+export interface QrCodeGetResponse {
+  Value: string;
+  IncludeMargin: boolean;
+  BackgroundColor?: string;
+  ForegroundColor?: string;
+  ImageUrl?: string;
+  ImageHeight?: number;
+  ImageWidth?: number;
+}
+
+export const getCode = async (organizationIdentifier: string, qrCodeId: string) : Promise<QrCodeGetResponse> => {
 
   try {
     const url = constructUrl(`qr-codes/${qrCodeId}`)
@@ -11,7 +21,8 @@ export const getCode = async (organizationIdentifier: string, qrCodeId: string) 
         "Organization-Identifier": organizationIdentifier
       }
     })
-    return response.data
+
+    return response.data as QrCodeGetResponse
   } catch (error) {
     throw error
   }
