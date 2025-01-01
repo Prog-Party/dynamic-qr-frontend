@@ -39,8 +39,8 @@ const OrganizationPage = () => {
           <DashboardCard title="QR code">
             <>
                 Info over qr code
-                <br />Id: {id}
-                <br />Value: {qrCode?.Value}
+              <br />Id: {id}
+              <br />Value: {qrCode?.Value}
             </>
           </DashboardCard>
         </Grid>

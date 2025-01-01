@@ -1,7 +1,5 @@
-import { constructUrl } from "@/api/ApiHelper";
-import { EventTypes } from "@/constants/qr-codes/EventTypes";
-import axios from "axios";
-import React from "react";
+import { constructUrl } from "@/api/ApiHelper"
+import axios from "axios"
 
 export interface QrCodeHistoryResponse {
   QrCodeId: string;
@@ -11,76 +9,11 @@ export interface QrCodeHistoryResponse {
   OrganizationId: string;
   EventType: string;
   Details: { [key: string]: string };
-  EventName: string;
-  DetailsMessage?: React.ReactElement;
-  Date: Date;
-  Color: string;
 }
 
 const orderResponse = (response: QrCodeHistoryResponse[]) => {
   return response.sort((a, b) => a.Order.localeCompare(b.Order))
 }
-
-const updateData = (response: QrCodeHistoryResponse[]) => {
-  return response.map((item) => {
-    return {
-      ...item,
-      Date: new Date(item.Timestamp),
-      EventName: getEventName(item.EventType),
-      DetailsMessage: getDetailsMessage(item.EventType, item.Details),
-      Color: getColor(item.EventType)
-    }
-  })
-}
-
-const getColor = (eventType: string): string => {
-  switch (eventType) {
-    case EventTypes.Lifecycle_Created:
-      return "green"
-    case EventTypes.Lifecycle_Updated:
-    case EventTypes.TargetUpdates_TargetChanged:
-      return "orange"
-    case EventTypes.Lifecycle_Deleted:
-      return "red"
-    case EventTypes.ScanEvents_Scanned:
-      return "info"
-    default:
-      return "default"
-  }
-}
-
-const getEventName = (eventType: string): string => {
-  switch (eventType) {
-    case EventTypes.Lifecycle_Created:
-      return "Created"
-    case EventTypes.Lifecycle_Updated:
-      return "Updated"
-    case EventTypes.Lifecycle_Deleted:
-      return "Deleted"
-    case EventTypes.ScanEvents_Scanned:
-      return "Scanned"
-    case EventTypes.TargetUpdates_TargetChanged:
-      return "Target Changed"
-    default:
-      return "Unknown"
-  }
-}
-const getDetailsMessage = (EventType: string, Details: { [key: string]: string; }): React.ReactElement | undefined => {
-  switch (EventType) {
-    case EventTypes.Lifecycle_Updated:
-      return <>
-        <b>Updated fields</b>
-        {Object.keys(Details).map((key) => {
-          return <div key={key}>{key} to {Details[key]}</div>
-        })}
-      </>
-    case EventTypes.TargetUpdates_TargetChanged:
-      return <p>Target changed to {Details.Value}</p>
-    default:
-      return undefined
-  }
-}
-
 
 export const getQrCodeHistory = async (organizationIdentifier: string, qrCodeId: string): Promise<QrCodeHistoryResponse[]> => {
   try {
@@ -142,7 +75,7 @@ export const getQrCodeHistory = async (organizationIdentifier: string, qrCodeId:
         "Timestamp": "2024-12-23T12:42:54.7255063+01:00",
         "CustomerId": "dennis",
         "OrganizationId": "1337",
-        "EventType": "Lifecycle_Updated",
+        "EventType": "Lifecycle_UpdatedTarget",
         "Details": {
           "NewValue": "https://www.dem-it.nl"
         }
@@ -165,7 +98,7 @@ export const getQrCodeHistory = async (organizationIdentifier: string, qrCodeId:
 
     const responseDataDummy = dummyData as QrCodeHistoryResponse[]
 
-    return updateData(orderResponse(responseDataDummy))
+    return orderResponse(responseDataDummy)
 
     const url = constructUrl(`qr-codes/${qrCodeId}/history`)
     const response = await axios.get(url, {
@@ -175,7 +108,7 @@ export const getQrCodeHistory = async (organizationIdentifier: string, qrCodeId:
       }
     })
     const responseData = response.data as QrCodeHistoryResponse[]
-    return updateData(orderResponse(responseData))
+    return orderResponse(responseData)
   } catch (error) {
     throw error
   }

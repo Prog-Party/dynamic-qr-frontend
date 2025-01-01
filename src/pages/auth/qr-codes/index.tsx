@@ -16,7 +16,6 @@ const QrCodesPage = () => {
 
   const createQrCode = async () => {
     const result = await createCode(user!.organizationId)
-    console.log("Result: " + result)
     window.location.href = `/auth/qr-codes/${result.Id}`
   }
 

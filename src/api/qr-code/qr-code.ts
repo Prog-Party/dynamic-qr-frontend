@@ -1,5 +1,5 @@
-import { constructUrl } from "@/api/ApiHelper";
-import axios from "axios";
+import { constructUrl } from "@/api/ApiHelper"
+import axios from "axios"
 
 export interface QrCodeGetResponse {
   Value: string;
