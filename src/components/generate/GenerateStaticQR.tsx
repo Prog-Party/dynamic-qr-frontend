@@ -1,4 +1,4 @@
-import { updateQrCode } from "@/api/qr-code/qr-code-put"
+import { QrCodePutRequest, updateQrCode } from "@/api/qr-code/qr-code-put"
 import ColorPickerWithPopover from "@/components/ColorPickerWithPopover"
 import { calculateRandomQrCodeId } from "@/utils/calculations/calculateNewQrCodeId"
 import calculateContrastRatio from "@/utils/colors/calculateContrastRatio"
@@ -106,14 +106,13 @@ const GenerateStaticQr = (props: GenerateStaticQrProps) => {
   }, [backgroundColor, foregroundColor])
 
   const handleSaveLayout = async () => {
-    const layoutData = {
-      includeMargin,
-      backgroundColor,
-      foregroundColor,
-      imageUrl,
-      imageHeight,
-      imageWidth,
-      imageHeightSameAsWidth
+    const layoutData : QrCodePutRequest = {
+      IncludeMargin: includeMargin,
+      BackgroundColor: backgroundColor,
+      ForegroundColor: foregroundColor,
+      ImageUrl: imageUrl,
+      ImageHeight: imageHeight,
+      ImageWidth: imageWidth
     }
     try {
       await updateQrCode("your-organization-identifier", dynamicQrCodeId, layoutData)

@@ -65,11 +65,11 @@ const HistoryTimeline = ({ qrCodeId }: { qrCodeId: string }) => {
             <TimelineItem key={item.Order}>
               <TimelineContent style={{ minWidth: "150px" }}>
                 <b>{item.EventName}</b>
-                <span style={{ fontSize: '0.8em' }}>
+                <span style={{ fontSize: "0.8em" }}>
                   &nbsp; by {item.CustomerId}
                 </span>
                 <br />
-                <span style={{ fontSize: '0.8em' }}>
+                <span style={{ fontSize: "0.8em" }}>
                   {itemDateToString(item)}
                 </span>
               </TimelineContent>
@@ -124,6 +124,5 @@ const itemDateToString = (item: HistoryTimelineData) => {
     hour12: false
   })
 }
-
 
 export default withAuthenticationRequired(HistoryTimeline)

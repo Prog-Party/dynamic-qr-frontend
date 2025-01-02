@@ -1,7 +1,7 @@
 import { constructUrl } from "@/api/ApiHelper"
 import axios from "axios"
 
-interface QrCodePutRequest {
+export interface QrCodePutRequest {
   IncludeMargin: boolean;
   BackgroundColor?: string;
   ForegroundColor?: string;

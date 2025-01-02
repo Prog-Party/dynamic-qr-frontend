@@ -29,19 +29,17 @@ export const CombineData = (data: HistoryTimelineData[]): HistoryTimelineDataCom
       return
     }
 
-    if (item.EventType === tempCombinedData[0].EventType 
+    if (item.EventType === tempCombinedData[0].EventType
       && item.CustomerId === tempCombinedData[0].CustomerId) {
       tempCombinedData.push(item)
     } else {
-      combinedData.push({CombinedData: tempCombinedData})
+      combinedData.push({ CombinedData: tempCombinedData })
       tempCombinedData = [item]
     }
   })
 
   if(tempCombinedData.length > 0)
-    combinedData.push({CombinedData: tempCombinedData})
-
-  console.log(combinedData)
+    combinedData.push({ CombinedData: tempCombinedData })
 
   return combinedData
 }
