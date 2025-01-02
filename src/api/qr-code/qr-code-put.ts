@@ -1,8 +1,7 @@
 import { constructUrl } from "@/api/ApiHelper"
 import axios from "axios"
 
-export interface QrCodeGetResponse {
-  Value: string;
+export interface QrCodePutRequest {
   IncludeMargin: boolean;
   BackgroundColor?: string;
   ForegroundColor?: string;
@@ -11,18 +10,16 @@ export interface QrCodeGetResponse {
   ImageWidth?: number;
 }
 
-export const getCode = async (organizationIdentifier: string, qrCodeId: string) : Promise<QrCodeGetResponse> => {
-
+export const updateQrCode = async (organizationIdentifier: string, qrCodeId: string, data: QrCodePutRequest) => {
   try {
     const url = constructUrl(`qr-codes/${qrCodeId}`)
-    const response = await axios.get(url, {
+    const response = await axios.put(url, data, {
       headers: {
         "Content-Type": "application/json",
         "Organization-Identifier": organizationIdentifier
       }
     })
-
-    return response.data as QrCodeGetResponse
+    return response.data
   } catch (error) {
     throw error
   }
