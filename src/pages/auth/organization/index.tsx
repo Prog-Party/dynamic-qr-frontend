@@ -14,10 +14,6 @@ const OrganizationPage = () => {
   const { user } = useAuth0()
   const [qrCodes, setQrCodes] = useState<QrCodeGetAllResponse[]>()
 
-  const createQrCode = async () => {
-    //const result = await createCode(user!.organizationId, "temp")
-  }
-
   useEffect(() => {
     const fetchData = async () => {
       const api = new QrCodes()
@@ -40,9 +36,6 @@ const OrganizationPage = () => {
           <Typography>
             <b>Description:</b> Information about this person&apos;s organization. Invite colleagues, maybe some rolebased stuff, etc.
           </Typography>
-          <p>
-            {/* QR Codes: {qrCodes} */}
-          </p>
         </>
       </DashboardCard>
       <DashboardCard title="Overview QR Codes">
