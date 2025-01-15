@@ -8,7 +8,6 @@ const generate = async () => {
       name: "api.ts",
       output: path.resolve(process.cwd(), "./src/api/backend"),
       url: "https://dynamic-qrs.azurewebsites.net/api/swagger.json",
-      // 'axios' or or 'fetch'
       httpClientType: "axios",
       generateClient: true,
       generateRouteTypes: true,
