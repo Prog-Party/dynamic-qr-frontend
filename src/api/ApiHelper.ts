@@ -6,5 +6,5 @@ export const constructUrl = (endpoint: string) => {
   // if endpoint contains a questionmark, append with & else append with ?
   const separator = endpoint.includes("?") ? "&" : "?"
 
-  return `${API_BASE_URL}/${endpoint}${separator}${backendKey}`
+  return `${API_BASE_URL}/${endpoint}${separator}code=${backendKey}`
 }
