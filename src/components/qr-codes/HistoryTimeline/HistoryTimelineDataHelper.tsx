@@ -1,9 +1,9 @@
-import { QrCodeHistoryResponse } from "@/api/qr-code/history/history-get"
+import { HistoryGetResponse } from "@/api/backend/data-contracts"
 import { EventTypes } from "@/constants/qr-codes/EventTypes"
 import React from "react"
 import { HistoryTimelineData, HistoryTimelineDataCombined } from "./HistoryTimelineData"
 
-export const PrepareData = (response: QrCodeHistoryResponse[]) : HistoryTimelineData[] => {
+export const PrepareData = (response: HistoryGetResponse[]) : HistoryTimelineData[] => {
   return response.map((item) => {
     return {
       ...item,

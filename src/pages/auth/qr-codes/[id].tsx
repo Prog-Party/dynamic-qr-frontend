@@ -1,5 +1,7 @@
 "use client"
-import { getCode, QrCodeGetResponse } from "@/api/qr-code/qr-code"
+import { QrCodeGetResponse } from "@/api/backend/data-contracts"
+import { getDefaultHeaders } from "@/api/backend/default-headers"
+import { QrCodes } from "@/api/backend/QrCodes"
 import PageContainer from "@/components/container/PageContainer"
 import HistoryTimeline from "@/components/qr-codes/HistoryTimeline"
 import DashboardCard from "@/components/shared/DashboardCard"
@@ -14,7 +16,6 @@ const OrganizationPage = () => {
   const { id } = router.query
 
   const { user } = useAuth0()
-  const organizationId = user?.organizationId ?? -1
   const [qrCode, setQrCode] = useState<QrCodeGetResponse | undefined>(undefined)
 
   useEffect(() => {
@@ -22,8 +23,9 @@ const OrganizationPage = () => {
       return
 
     const fetchData = async () => {
-      const apiResult = await getCode(organizationId, id as string)
-      setQrCode(apiResult)
+      const api = new QrCodes()
+      const apiResult = await api.qrCodeGet(id as string, { headers: getDefaultHeaders(user) })
+      setQrCode(apiResult.data)
     }
 
     fetchData()

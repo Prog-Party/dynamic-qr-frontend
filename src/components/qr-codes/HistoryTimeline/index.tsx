@@ -1,4 +1,6 @@
-import { getQrCodeHistory, QrCodeHistoryResponse } from "@/api/qr-code/history/history-get"
+import { QrCodes } from "@/api/backend/QrCodes"
+import { HistoryGetResponse } from "@/api/backend/data-contracts"
+import { getDefaultHeaders } from "@/api/backend/default-headers"
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import Timeline from "@mui/lab/Timeline"
@@ -32,16 +34,22 @@ const HistoryTimeline = ({ qrCodeId }: { qrCodeId: string }) => {
 
   const { user } = useAuth0()
   const organizationId = user?.organizationId ?? -1
-  const [history, setHistory] = useState<QrCodeHistoryResponse[]>([])
+  const [history, setHistory] = useState<HistoryGetResponse[]>([])
   const [data, setData] = useState<HistoryTimelineDataCombined[]>([])
+
+
+  const orderResponse = (response: HistoryGetResponse[]) => {
+    return response.sort((a, b) => (a.order ?? "").localeCompare(b.order ?? ""))
+  }
 
   useEffect(() => {
     if (qrCodeId == null)
       return
 
     const fetchData = async () => {
-      const apiResult = await getQrCodeHistory(organizationId, qrCodeId)
-      setHistory(apiResult)
+      const api = new QrCodes()
+      const history = await api.historyGet(qrCodeId, { headers: getDefaultHeaders(user) })
+      setHistory(orderResponse(history.data))
     }
 
     fetchData()
