@@ -27,7 +27,7 @@ const NavGroup = (props: NavGroupProps) => {
   return (
     <ListSubheaderStyle>
       {props.isCollapsed ? <>
-        {props.item.subheader?.substring(0, 3)}...
+        {props.item.subheader?.substring(0, 3).replace(" ", "")}...
       </> : props.item.subheader}
     </ListSubheaderStyle>
   )

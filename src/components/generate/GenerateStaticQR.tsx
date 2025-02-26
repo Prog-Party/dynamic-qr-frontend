@@ -1,5 +1,6 @@
+import { QrCodePutRequest, updateQrCode } from "@/api/qr-code/qr-code-put"
 import ColorPickerWithPopover from "@/components/ColorPickerWithPopover"
-import { calculateNewQrCodeId } from "@/utils/calculations/calculateNewQrCodeId"
+import { calculateRandomQrCodeId } from "@/utils/calculations/calculateNewQrCodeId"
 import calculateContrastRatio from "@/utils/colors/calculateContrastRatio"
 import InfoIcon from "@mui/icons-material/Info"
 import { FormControlLabel, Grid, Slider, Stack, Switch, Table, TableBody, TableCell, TableContainer, TableRow, TextField, Typography } from "@mui/material"
@@ -18,9 +19,13 @@ const SlimTableCell = styled(TableCell)(({ theme }) => ({
   paddingRight: "12px"
 }))
 
-const GenerateStaticQr = () => {
+interface GenerateStaticQrProps {
+  id?: string;
+}
 
-  const [dynamicQrCodeId] = useState(calculateNewQrCodeId())
+const GenerateStaticQr = (props: GenerateStaticQrProps) => {
+
+  const [dynamicQrCodeId] = useState(props.id ?? calculateRandomQrCodeId())
   const [value, setValue] = useState("")
   const [includeMargin, setMargin] = useState(false)
   const [backgroundColor, setBackgroundColor] = useState("#ffffff")
@@ -99,6 +104,23 @@ const GenerateStaticQr = () => {
     const contrast = calculateContrastRatio(backgroundColor, foregroundColor)
     setContrastRatio(contrast)
   }, [backgroundColor, foregroundColor])
+
+  const handleSaveLayout = async () => {
+    const layoutData : QrCodePutRequest = {
+      IncludeMargin: includeMargin,
+      BackgroundColor: backgroundColor,
+      ForegroundColor: foregroundColor,
+      ImageUrl: imageUrl,
+      ImageHeight: imageHeight,
+      ImageWidth: imageWidth
+    }
+    try {
+      await updateQrCode("your-organization-identifier", dynamicQrCodeId, layoutData)
+      alert("QR code layout updated successfully!")
+    } catch (error) {
+      alert("Failed to update QR code layout.")
+    }
+  }
 
   return <>
     <Grid container spacing={4} sx={{ mt: 0 }}>
@@ -290,6 +312,7 @@ const GenerateStaticQr = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        <button onClick={handleSaveLayout}>Save Layout</button>
       </Grid >
     </Grid >
     {/* TODO: Add a download button to download the qr code */}

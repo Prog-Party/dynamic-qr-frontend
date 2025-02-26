@@ -33,6 +33,7 @@ const MSidebar = ({
   }, [isAuthenticated])
 
   const sidebarWidth = "270px"
+  const sidebarCollapsedWidth = "100px"
 
   // Custom CSS for short scrollbar
   const scrollbarStyles = {
@@ -55,7 +56,7 @@ const MSidebar = ({
     return (
       <Box
         sx={{
-          width: sidebarWidth,
+          width: isCollapsed ? sidebarCollapsedWidth : sidebarWidth,
           flexShrink: 0,
         }}
       >
@@ -84,7 +85,7 @@ const MSidebar = ({
             onMouseLeave={() => setIsCollapsed(true)}
           >
             <Sidebar
-              width={"270px"}
+              width={isCollapsed ? sidebarCollapsedWidth : sidebarWidth}
               collapsewidth="100px"
               open={isSidebarOpen}
               isCollapse={isCollapsed}

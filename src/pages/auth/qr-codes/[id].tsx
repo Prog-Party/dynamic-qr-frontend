@@ -1,8 +1,12 @@
 "use client"
-import { getCode } from "@/api/qr-code/qr-code"
+import { QrCodeGetResponse } from "@/api/backend/data-contracts"
+import { getDefaultHeaders } from "@/api/backend/default-headers"
+import { QrCodes } from "@/api/backend/QrCodes"
 import PageContainer from "@/components/container/PageContainer"
+import HistoryTimeline from "@/components/qr-codes/HistoryTimeline"
 import DashboardCard from "@/components/shared/DashboardCard"
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react"
+import { Grid } from "@mui/material"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 
@@ -12,29 +16,42 @@ const OrganizationPage = () => {
   const { id } = router.query
 
   const { user } = useAuth0()
-  const organizationId = user?.organizationId ?? -1
-  const [qrCode, setQrCode] = useState()
-
-  const createQrCode = async () => {
-    const result = await getCode(user!.organizationId, "temp")
-  }
+  const [qrCode, setQrCode] = useState<QrCodeGetResponse | undefined>(undefined)
 
   useEffect(() => {
+    if(id == null)
+      return
+
     const fetchData = async () => {
-      const apiResult = await getCode(organizationId, id as string)
-      setQrCode(apiResult)
+      const api = new QrCodes()
+      const apiResult = await api.qrCodeGet(id as string, { headers: getDefaultHeaders(user) })
+      setQrCode(apiResult.data)
     }
 
     fetchData()
-  }, [])
+  }, [id])
+
+  if(user?.organizationId == null )
+    return <>Please log in</>
 
   return (
     <PageContainer title="QR code" description="welcome to a qr code page">
-      <DashboardCard title="QR code information">
-        <>
-            Info over qr code
-        </>
-      </DashboardCard>
+      <Grid container spacing={3}>
+        <Grid item xs={6}>
+          <DashboardCard title="QR code">
+            <>
+                Info over qr code
+              <br />Id: {id}
+              <br />Value: {qrCode?.Value}
+            </>
+          </DashboardCard>
+        </Grid>
+        <Grid item xs={6}>
+          <DashboardCard title="QR code history">
+            <HistoryTimeline qrCodeId={id as string} />
+          </DashboardCard>
+        </Grid>
+      </Grid>
     </PageContainer>
   )
 }
